@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آية اليوم</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(135deg, #fdfbfb, #ebedee);
+        }
+
+        #verse {
+            font-size: 24px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        #new-verse {
+            background: #007bff;
+            color: white;
+        }
+
+        #new-verse:hover {
+            background: #0056b3;
+        }
+
+        #copy-verse {
+            background: #28a745;
+            color: white;
+        }
+
+        #copy-verse:hover {
+            background: #218838;
+        }
+
+        #share-verse {
+            background: #ffc107;
+            color: black;
+        }
+
+        #share-verse:hover {
+            background: #e0a800;
+        }
+
+        #save-verse {
+            background: #dc3545;
+            color: white;
+        }
+
+        #save-verse:hover {
+            background: #c82333;
+        }
+
+        #explain-verse {
+            background: #6610f2;
+            color: white;
+        }
+
+        #explain-verse:hover {
+            background: #520dc2;
+        }
+
+        #notification-button {
+            background: #6c757d;
+            color: white;
+        }
+
+        #notification-button:hover {
+            background: #5a6268;
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 14px;
+            color: #888;
+        }
+
+        .footer .church-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0056b3;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .footer .church-name:hover {
+            color: #ff6347;
+            transform: scale(1.1);
+        }
+
+        .copyright {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        #search-input {
+            padding: 10px;
+            width: 300px;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #search-button {
+            padding: 10px 20px;
+            margin: 5px;
+            background: #17a2b8;
+            color: white;
+        }
+
+        #search-button:hover {
+            background: #138496;
+        }
+
+        #saved-verses-list {
+            margin-top: 20px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            z-index: 9999;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>آية اليوم لك 📖✨</h1>
+    <div id="verse">جاري تحميل الآية...</div>
+    <div class="buttons">
+        <button id="new-verse">🔄 آية جديدة</button>
+        <button id="copy-verse">📋 نسخ الآية</button>
+        <button id="share-verse">📤 مشاركة</button>
+        <button id="save-verse">❤️ حفظ الآية</button>
+        <button id="explain-verse">📖 عرض التفسير</button>
+        <button id="notification-button">🔔 تفعيل التنبيه اليومي</button>
+    </div>
+    <div>
+        <input type="text" id="search-input" placeholder="ابحث عن آية أو كلمة...">
+        <button id="search-button">🔍 بحث</button>
+    </div>
+    <div class="footer">
+        <p class="church-name">تحت إشراف كنيسة ماري مينا والبابا كيرلس</p>
+        <p>إرسالة ربنا ليك النهاردة ومع كل تحديث للصفحه رسالة مختلفة</p>
+    </div>
+    <div class="copyright">
+        <p>&copy; 2025 جميع الحقوق محفوظة لـ كنيسة ماري مينا. <br> تم تطوير هذا الموقع بواسطة المهندس أمير ميلاد.</p>
+    </div>
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
