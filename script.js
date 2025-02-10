@@ -59,7 +59,7 @@ function saveVerse() {
     if (!savedVerses.includes(verseText)) {
         savedVerses.push(verseText);
         localStorage.setItem("savedVerses", JSON.stringify(savedVerses));
-        showToast("تم حفظ الآية بنجاح! ❤️");
+        showToast("تم حفظ الآية بنجاح! ❤");
     } else {
         showToast("الآية محفوظة مسبقًا!");
     }
@@ -72,8 +72,9 @@ function showToast(message) {
     setTimeout(() => toast.style.display = "none", 3000);
 }
 
+// تحديث الآية عند تحميل الصفحة مباشرةً
 document.addEventListener("DOMContentLoaded", () => {
-    updateVerse();
+    setTimeout(updateVerse, 500); // تأخير بسيط لضمان التحديث بعد تحميل الصفحة بالكامل
     document.getElementById("new-verse").addEventListener("click", updateVerse);
     document.getElementById("copy-verse").addEventListener("click", copyVerse);
     document.getElementById("share-verse").addEventListener("click", shareVerse);
