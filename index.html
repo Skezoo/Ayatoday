@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ar">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,20 +10,22 @@
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 50px;
-            background: url('https://raw.githubusercontent.com/Skezoo/Ayatoday/main/c1.jpg') no-repeat center center fixed;
-            background-size: contain;
-            background-position: center;
+            background-image: url('https://raw.githubusercontent.com/Skezoo/Ayatoday/main/C3.jpg'); /* رابط الصورة كخلفية */
+            background-size: cover; /* تغطي الصورة كامل الشاشة */
+            background-position: center; /* تمركز الصورة */
             color: white;
+            height: 100vh; /* ملء الشاشة */
+            margin: 0;
         }
 
         #title {
-            font-size: 32px;
+            font-size: 32px; 
             font-weight: bold;
-            color: #fff; /* تغيير اللون إلى الأبيض لزيادة وضوح النص */
+            color: #FFD700; 
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
             margin-bottom: 30px;
             padding: 10px;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.5); 
             border-radius: 10px;
             display: inline-block;
             animation: fadeIn 2s ease-in-out;
@@ -37,8 +38,8 @@
 
         #verse-container {
             display: flex;
+            justify-content: space-between; /* لتوزيع الصورة والآية على الجانبين */
             align-items: center;
-            justify-content: center;
             gap: 15px;
             background: rgba(0, 0, 0, 0.6);
             padding: 20px;
@@ -58,7 +59,7 @@
             opacity: 1;
             transition: opacity 0.3s ease-in-out;
             flex: 1;
-            max-width: 80%;
+            max-width: 60%;
         }
 
         #verse-image {
@@ -112,7 +113,7 @@
         }
 
         .footer .church-name {
-            font-size: 26px; /* تكبير الحجم هنا */
+            font-size: 20px;
             font-weight: bold;
             color: #FFD700;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
@@ -148,15 +149,12 @@
 </head>
 
 <body>
-    <h2 id="title">
-        صوت ربنا ليك 
-        <span style="color: red;">✝</span>
-        <span style="color: red;">📖</span>
-    </h2>
+    <h2 id="title">صوت ربنا ليك ✝📖</h2>
 
     <div id="verse-container">
         <img src="https://raw.githubusercontent.com/Skezoo/Ayatoday/main/c2.jpg" id="verse-image" alt="صورة دينية">
         <div id="verse">جاري تحميل الآية...</div>
+        <img src="https://raw.githubusercontent.com/Skezoo/Ayatoday/main/c1.jpg" id="verse-image" alt="صورة دينية">
     </div>
 
     <div class="buttons">
