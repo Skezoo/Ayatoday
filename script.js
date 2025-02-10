@@ -29,14 +29,14 @@ function updateVerse() {
     if (!verseElement) return;
 
     verseElement.style.opacity = 0; // بداية تأثير الإظهار
-    
+
     setTimeout(() => {
         const newVerse = getRandomVerse();
         if (newVerse) {
             verseElement.textContent = newVerse;
             verseElement.style.opacity = 1; // إظهار النص بسلاسة
         }
-    }, 100); // تأخير قصير جدًا لتشغيل الانتقال
+    }, 100); // تأخير قصير لتشغيل الانتقال
 }
 
 function copyVerse() {
@@ -98,12 +98,16 @@ function sendDailyNotification() {
 
 function explainVerse() {
     const verseText = document.getElementById("verse").textContent;
-    showToast(`تفسير الآية: ${verseText}`); // إصلاح الخطأ هنا
+    showToast(`تفسير الآية: ${verseText}`);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    updateVerse(); // تحميل الآية فورًا بدون تأخير
-    
+    const verseElement = document.getElementById("verse");
+    if (verseElement) {
+        verseElement.style.opacity = 1; // ضمان ظهور النص
+        updateVerse(); // تحميل الآية فورًا
+    }
+
     document.getElementById("new-verse").addEventListener("click", updateVerse);
     document.getElementById("copy-verse").addEventListener("click", copyVerse);
     document.getElementById("share-verse").addEventListener("click", shareVerse);
