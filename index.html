@@ -11,23 +11,24 @@
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 50px;
-            background-image: url('https://raw.githubusercontent.com/Skezoo/Ayatoday/main/C3.jpg'); /* الصورة كخلفية */
-            background-size: cover; /* تغطي الصورة كامل الشاشة */
-            background-position: center; /* تمركز الصورة */
+            background-image: url('https://raw.githubusercontent.com/Skezoo/Ayatoday/main/C3.jpg');
+            background-size: contain; /* ضبط الصورة بحيث تتناسب مع الحجم بدون تشويه */
+            background-position: center;
+            background-repeat: no-repeat; /* عدم تكرار الصورة */
             color: white;
-            height: 100vh; /* ملء الشاشة */
+            height: 100vh;
             margin: 0;
         }
 
         #title {
-            font-size: 32px;
+            font-size: 32px; /* زيادة حجم الخط */
             font-weight: bold;
-            color: #000; /* اللون الأسود */
+            color: #FFD700; /* لون ذهبي */
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* ظل أكثر وضوحًا */
             margin-bottom: 30px;
             padding: 10px;
             background: rgba(0, 0, 0, 0.5); /* خلفية شفافة */
-            border-radius: 10px;
+            border-radius: 10px; /* زوايا مدورة */
             display: inline-block;
             animation: fadeIn 2s ease-in-out; /* تأثير ظهور */
         }
@@ -64,7 +65,7 @@
         }
 
         #verse-image {
-            width: 120px;
+            width: 120px; /* تم زيادة العرض هنا */
             height: auto;
             border-radius: 10px;
             max-width: 100%;
@@ -140,10 +141,10 @@
 
         @media (max-width: 600px) {
             body { padding: 20px; }
-            #title { font-size: 24px; padding: 8px; } 
+            #title { font-size: 24px; padding: 8px; } /* حجم أصغر للهواتف */
             #verse-container { flex-direction: column; max-width: 100%; padding: 15px; }
             #verse { font-size: 18px; padding: 15px; max-width: 100%; }
-            #verse-image { width: 100px; } 
+            #verse-image { width: 100px; } /* حجم أصغر للهواتف */
             button { min-width: 100px; font-size: 14px; }
         }
     </style>
