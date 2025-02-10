@@ -12,7 +12,7 @@
             text-align: center;
             padding: 50px;
             background: url('https://raw.githubusercontent.com/Skezoo/Ayatoday/main/c1.jpg') no-repeat center center fixed;
-            background-size: cover;
+            background-size: contain; /* تعديل لتصغير الخلفية مع الزوم */
             color: white;
         }
 
@@ -74,29 +74,10 @@
         #copy-verse { background: #28a745; color: white; }
         #copy-verse:hover { background: #218838; }
 
-        #share-verse { background: #ffc107; color: black; }
-        #share-verse:hover { background: #e0a800; }
-
-        #save-verse { background: #dc3545; color: white; }
-        #save-verse:hover { background: #c82333; }
-
-        #explain-verse { background: #6610f2; color: white; }
-        #explain-verse:hover { background: #520dc2; }
-
-        #notification-button { background: #6c757d; color: white; }
-        #notification-button:hover { background: #5a6268; }
-
         .footer {
             margin-top: 40px;
             font-size: 14px;
             color: #ddd;
-        }
-
-        .footer .church-name {
-            font-size: 20px;
-            font-weight: bold;
-            color: #FFD700;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .copyright {
@@ -105,43 +86,6 @@
             color: #aaa;
         }
 
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            z-index: 9999;
-            display: none;
-        }
-
-        /* تحسين العرض على الشاشات الصغيرة */
-        @media (max-width: 600px) {
-            body { padding: 20px; }
-
-            #verse-container {
-                flex-direction: column;
-                max-width: 100%;
-                padding: 15px;
-            }
-
-            #verse {
-                font-size: 18px;
-                padding: 15px;
-                max-width: 100%;
-            }
-
-            #verse-image {
-                width: 60px;
-            }
-
-            button {
-                min-width: 100px;
-                font-size: 14px;
-            }
-        }
     </style>
 </head>
 
@@ -156,19 +100,10 @@
     <div class="buttons">
         <button id="new-verse">🔄 آية جديدة</button>
         <button id="copy-verse">📋 نسخ الآية</button>
-        <button id="share-verse">📤 مشاركة</button>
-        <button id="save-verse">❤ حفظ الآية</button>
-        <button id="explain-verse">📖 عرض التفسير</button>
-        <button id="notification-button">🔔 تفعيل التنبيه اليومي</button>
     </div>
 
     <div class="footer">
-        <p class="church-name">
-            <a href="https://www.facebook.com/share/19o48YDdaW/" target="_blank"
-                style="text-decoration: none; color: inherit;">
-                كنيسة مار مينا والبابا كيرلس
-            </a>
-        </p>
+        <p class="church-name">كنيسة مار مينا والبابا كيرلس</p>
         <p>إرسالة ربنا ليك النهاردة ومع كل تحديث للصفحة رسالة مختلفة</p>
     </div>
 
@@ -176,9 +111,7 @@
         <p>&copy; 2025 جميع الحقوق محفوظة لـ كنيسة ماري مينا. <br> تم تطوير هذا الموقع بواسطة المهندس أمير ميلاد.</p>
     </div>
 
-    <div class="toast" id="toast"></div>
-
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 
 </html>
