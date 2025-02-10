@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,7 @@
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 50px;
-            background-image: url('https://raw.githubusercontent.com/Skezoo/Ayatoday/main/C3.jpg'); /* رابط الصورة كخلفية */
+            background-image: url('https://raw.githubusercontent.com/Skezoo/Ayatoday/main/C3.jpg'); /* الصورة كخلفية */
             background-size: cover; /* تغطي الصورة كامل الشاشة */
             background-position: center; /* تمركز الصورة */
             color: white;
@@ -19,16 +20,16 @@
         }
 
         #title {
-            font-size: 32px; 
+            font-size: 32px;
             font-weight: bold;
-            color: #FFD700; 
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            color: #000; /* اللون الأسود */
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* ظل أكثر وضوحًا */
             margin-bottom: 30px;
             padding: 10px;
-            background: rgba(0, 0, 0, 0.5); 
+            background: rgba(0, 0, 0, 0.5); /* خلفية شفافة */
             border-radius: 10px;
             display: inline-block;
-            animation: fadeIn 2s ease-in-out;
+            animation: fadeIn 2s ease-in-out; /* تأثير ظهور */
         }
 
         @keyframes fadeIn {
@@ -38,8 +39,8 @@
 
         #verse-container {
             display: flex;
-            justify-content: space-between; /* لتوزيع الصورة والآية على الجانبين */
             align-items: center;
+            justify-content: center;
             gap: 15px;
             background: rgba(0, 0, 0, 0.6);
             padding: 20px;
@@ -59,7 +60,7 @@
             opacity: 1;
             transition: opacity 0.3s ease-in-out;
             flex: 1;
-            max-width: 60%;
+            max-width: 80%;
         }
 
         #verse-image {
@@ -139,10 +140,10 @@
 
         @media (max-width: 600px) {
             body { padding: 20px; }
-            #title { font-size: 24px; padding: 8px; }
+            #title { font-size: 24px; padding: 8px; } 
             #verse-container { flex-direction: column; max-width: 100%; padding: 15px; }
             #verse { font-size: 18px; padding: 15px; max-width: 100%; }
-            #verse-image { width: 100px; }
+            #verse-image { width: 100px; } 
             button { min-width: 100px; font-size: 14px; }
         }
     </style>
@@ -154,7 +155,6 @@
     <div id="verse-container">
         <img src="https://raw.githubusercontent.com/Skezoo/Ayatoday/main/c2.jpg" id="verse-image" alt="صورة دينية">
         <div id="verse">جاري تحميل الآية...</div>
-        <img src="https://raw.githubusercontent.com/Skezoo/Ayatoday/main/c1.jpg" id="verse-image" alt="صورة دينية">
     </div>
 
     <div class="buttons">
@@ -177,7 +177,7 @@
     </div>
 
     <div class="copyright">
-        <p>&copy; 2025 جميع الحقوق محفوظة لـ كاتدرائية مارمينا. <br> تم تطوير هذا الموقع بواسطة المهندس أمير ميلاد.</p>
+        <p>&copy; 2025 جميع الحقوق محفوظة لـ كنيسة ماري مينا. <br> تم تطوير هذا الموقع بواسطة المهندس أمير ميلاد.</p>
     </div>
 
     <div class="toast" id="toast"></div>
