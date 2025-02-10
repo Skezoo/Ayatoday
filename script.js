@@ -28,29 +28,26 @@ function updateVerse() {
     const verseElement = document.getElementById("verse");
     if (!verseElement) return;
 
-    verseElement.innerText = "جاري تحميل الآية...";
-    verseElement.style.opacity = 1;
-
+    verseElement.style.opacity = 0; // بداية تأثير الإظهار
+    
     setTimeout(() => {
         const newVerse = getRandomVerse();
         if (newVerse) {
-            verseElement.innerText = newVerse;
-            verseElement.style.opacity = 1;
-        } else {
-            verseElement.innerText = "حدث خطأ في تحميل الآية!";
+            verseElement.textContent = newVerse;
+            verseElement.style.opacity = 1; // إظهار النص بسلاسة
         }
-    }, 1000);
+    }, 100); // تأخير قصير جدًا لتشغيل الانتقال
 }
 
 function copyVerse() {
-    const verseText = document.getElementById("verse").innerText;
+    const verseText = document.getElementById("verse").textContent;
     navigator.clipboard.writeText(verseText).then(() => {
         showToast("تم نسخ الآية 📋");
     });
 }
 
 function shareVerse() {
-    const verseText = document.getElementById("verse").innerText;
+    const verseText = document.getElementById("verse").textContent;
     if (navigator.share) {
         navigator.share({
             title: "آية اليوم",
@@ -63,7 +60,7 @@ function shareVerse() {
 }
 
 function saveVerse() {
-    const verseText = document.getElementById("verse").innerText;
+    const verseText = document.getElementById("verse").textContent;
     let savedVerses = JSON.parse(localStorage.getItem("savedVerses")) || [];
     if (!savedVerses.includes(verseText)) {
         savedVerses.push(verseText);
@@ -76,7 +73,7 @@ function saveVerse() {
 
 function showToast(message) {
     const toast = document.getElementById("toast");
-    toast.innerText = message;
+    toast.textContent = message;
     toast.style.display = "block";
     setTimeout(() => toast.style.display = "none", 3000);
 }
@@ -100,13 +97,13 @@ function sendDailyNotification() {
 }
 
 function explainVerse() {
-    const verseText = document.getElementById("verse").innerText;
-    showToast(تفسير الآية: ${verseText});
+    const verseText = document.getElementById("verse").textContent;
+    showToast(`تفسير الآية: ${verseText}`); // إصلاح الخطأ هنا
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    setTimeout(updateVerse, 500);
-
+    updateVerse(); // تحميل الآية فورًا بدون تأخير
+    
     document.getElementById("new-verse").addEventListener("click", updateVerse);
     document.getElementById("copy-verse").addEventListener("click", copyVerse);
     document.getElementById("share-verse").addEventListener("click", shareVerse);
