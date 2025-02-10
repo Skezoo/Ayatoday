@@ -25,8 +25,9 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
+            max-width: 90%;
             margin: auto;
+            flex-wrap: wrap;
         }
 
         #verse {
@@ -38,12 +39,14 @@
             opacity: 1;
             transition: opacity 0.5s ease-in-out;
             flex: 1;
+            max-width: 80%;
         }
 
         #verse-image {
             width: 80px;
             height: auto;
             border-radius: 10px;
+            max-width: 100%;
         }
 
         .buttons {
@@ -62,71 +65,31 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background 0.3s, transform 0.2s;
-            min-width: 150px;
+            min-width: 120px;
         }
 
-        #new-verse {
-            background: #007bff;
-            color: white;
-        }
+        #new-verse { background: #007bff; color: white; }
+        #new-verse:hover { background: #0056b3; }
 
-        #new-verse:hover {
-            background: #0056b3;
-        }
+        #copy-verse { background: #28a745; color: white; }
+        #copy-verse:hover { background: #218838; }
 
-        #copy-verse {
-            background: #28a745;
-            color: white;
-        }
+        #share-verse { background: #ffc107; color: black; }
+        #share-verse:hover { background: #e0a800; }
 
-        #copy-verse:hover {
-            background: #218838;
-        }
+        #save-verse { background: #dc3545; color: white; }
+        #save-verse:hover { background: #c82333; }
 
-        #share-verse {
-            background: #ffc107;
-            color: black;
-        }
+        #explain-verse { background: #6610f2; color: white; }
+        #explain-verse:hover { background: #520dc2; }
 
-        #share-verse:hover {
-            background: #e0a800;
-        }
-
-        #save-verse {
-            background: #dc3545;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-
-        #save-verse:hover {
-            background: #c82333;
-        }
-
-        #explain-verse {
-            background: #6610f2;
-            color: white;
-        }
-
-        #explain-verse:hover {
-            background: #520dc2;
-        }
-
-        #notification-button {
-            background: #6c757d;
-            color: white;
-        }
-
-        #notification-button:hover {
-            background: #5a6268;
-        }
+        #notification-button { background: #6c757d; color: white; }
+        #notification-button:hover { background: #5a6268; }
 
         .footer {
             margin-top: 40px;
             font-size: 14px;
-            color: #888;
+            color: #ddd;
         }
 
         .footer .church-name {
@@ -134,12 +97,6 @@
             font-weight: bold;
             color: #FFD700;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-
-        .footer .church-name:hover {
-            color: #ff6347;
-            transform: scale(1.1);
         }
 
         .copyright {
@@ -158,6 +115,32 @@
             border-radius: 5px;
             z-index: 9999;
             display: none;
+        }
+
+        /* تحسين العرض على الشاشات الصغيرة */
+        @media (max-width: 600px) {
+            body { padding: 20px; }
+
+            #verse-container {
+                flex-direction: column;
+                max-width: 100%;
+                padding: 15px;
+            }
+
+            #verse {
+                font-size: 18px;
+                padding: 15px;
+                max-width: 100%;
+            }
+
+            #verse-image {
+                width: 60px;
+            }
+
+            button {
+                min-width: 100px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -183,7 +166,7 @@
         <p class="church-name">
             <a href="https://www.facebook.com/share/19o48YDdaW/" target="_blank"
                 style="text-decoration: none; color: inherit;">
-                ح كنيسة مار مينا والبابا كيرلس
+                كنيسة مار مينا والبابا كيرلس
             </a>
         </p>
         <p>إرسالة ربنا ليك النهاردة ومع كل تحديث للصفحة رسالة مختلفة</p>
