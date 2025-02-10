@@ -18,11 +18,21 @@
         }
 
         #title {
-            font-size: 28px;
+            font-size: 32px; /* زيادة حجم الخط */
             font-weight: bold;
-            color: #FFD700;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-            margin-bottom: 20px;
+            color: #FFD700; /* لون ذهبي */
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* ظل أكثر وضوحًا */
+            margin-bottom: 30px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5); /* خلفية شفافة */
+            border-radius: 10px; /* زوايا مدورة */
+            display: inline-block;
+            animation: fadeIn 2s ease-in-out; /* تأثير ظهور */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         #verse-container {
@@ -128,6 +138,7 @@
 
         @media (max-width: 600px) {
             body { padding: 20px; }
+            #title { font-size: 24px; padding: 8px; } /* حجم أصغر للهواتف */
             #verse-container { flex-direction: column; max-width: 100%; padding: 15px; }
             #verse { font-size: 18px; padding: 15px; max-width: 100%; }
             #verse-image { width: 100px; } /* حجم أصغر للهواتف */
@@ -137,7 +148,7 @@
 </head>
 
 <body>
-    <h2 id="title">آية عن الحب من ربنا ليك النهاردة ❤✨</h2>
+    <h2 id="title">آية من ربنا ليك النهاردة ❤✨</h2>
 
     <div id="verse-container">
         <img src="https://raw.githubusercontent.com/Skezoo/Ayatoday/main/c2.jpg" id="verse-image" alt="صورة دينية">
