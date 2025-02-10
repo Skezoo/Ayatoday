@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>آية اليوم</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 50px;
-            background: url('images/c1.jpg') no-repeat center center fixed;
+            background: url('https://raw.githubusercontent.com/Skezoo/Ayatoday/main/c1.jpg') no-repeat center center fixed;
             background-size: cover;
             color: white;
         }
@@ -34,8 +35,9 @@
             color: black;
             padding: 20px;
             border-radius: 10px;
-            opacity: 0;
+            opacity: 1;
             transition: opacity 0.5s ease-in-out;
+            flex: 1;
         }
 
         #verse-image {
@@ -44,142 +46,156 @@
             border-radius: 10px;
         }
 
-        button {
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
             margin-top: 20px;
-            padding: 10px 20px;
-            border: none;
-            background: #007BFF;
-            color: white;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
         }
 
-        button:hover {
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            min-width: 150px;
+        }
+
+        #new-verse {
+            background: #007bff;
+            color: white;
+        }
+
+        #new-verse:hover {
             background: #0056b3;
         }
 
-        #toast {
-            display: none;
+        #copy-verse {
+            background: #28a745;
+            color: white;
+        }
+
+        #copy-verse:hover {
+            background: #218838;
+        }
+
+        #share-verse {
+            background: #ffc107;
+            color: black;
+        }
+
+        #share-verse:hover {
+            background: #e0a800;
+        }
+
+        #save-verse {
+            background: #dc3545;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        #save-verse:hover {
+            background: #c82333;
+        }
+
+        #explain-verse {
+            background: #6610f2;
+            color: white;
+        }
+
+        #explain-verse:hover {
+            background: #520dc2;
+        }
+
+        #notification-button {
+            background: #6c757d;
+            color: white;
+        }
+
+        #notification-button:hover {
+            background: #5a6268;
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 14px;
+            color: #888;
+        }
+
+        .footer .church-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #FFD700;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .footer .church-name:hover {
+            color: #ff6347;
+            transform: scale(1.1);
+        }
+
+        .copyright {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        .toast {
             position: fixed;
             bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #333;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
             color: white;
-            padding: 10px 20px;
+            padding: 10px 15px;
             border-radius: 5px;
+            z-index: 9999;
+            display: none;
         }
     </style>
 </head>
 
 <body>
+    <h1>آية اليوم لك 📖✨</h1>
 
     <div id="verse-container">
-        <img id="verse-image" src="images/c2.jpg" alt="صورة جانبية">
+        <img src="https://raw.githubusercontent.com/Skezoo/Ayatoday/main/c2.jpg" id="verse-image" alt="صورة دينية">
         <div id="verse">جاري تحميل الآية...</div>
     </div>
 
-    <button id="new-verse">آية جديدة</button>
-    <button id="copy-verse">نسخ الآية</button>
-    <button id="share-verse">مشاركة</button>
-    <button id="save-verse">حفظ</button>
-    <button id="explain-verse">تفسير الآية</button>
+    <div class="buttons">
+        <button id="new-verse">🔄 آية جديدة</button>
+        <button id="copy-verse">📋 نسخ الآية</button>
+        <button id="share-verse">📤 مشاركة</button>
+        <button id="save-verse">❤ حفظ الآية</button>
+        <button id="explain-verse">📖 عرض التفسير</button>
+        <button id="notification-button">🔔 تفعيل التنبيه اليومي</button>
+    </div>
 
-    <div id="toast"></div>
+    <div class="footer">
+        <p class="church-name">
+            <a href="https://www.facebook.com/share/19o48YDdaW/" target="_blank"
+                style="text-decoration: none; color: inherit;">
+                ح كنيسة مار مينا والبابا كيرلس
+            </a>
+        </p>
+        <p>إرسالة ربنا ليك النهاردة ومع كل تحديث للصفحة رسالة مختلفة</p>
+    </div>
 
-    <script>
-        const verses = [
-            "لأَنِّي عَرَفْتُ ٱلْأَفْكَارَ ٱلَّتِي أَنَا مُفَكِّرٌ بِهَا عَنْكُمْ، يَقُولُ ٱلرَّبُّ، أَفْكَارَ سَلَامٍ لَا شَرٍّ، لِأُعْطِيَكُمْ آخِرَةً وَرَجَاءً. - إرميا 29:11",
-            "ٱطْلُبُوا فَتُعْطَوْا، ٱقْرَعُوا فَيُفْتَحُ لَكُمْ. - متى 7:7",
-            "ٱلرَّبُّ نُورِي وَخَلَاصِي، مِمَّنْ أَخَافُ؟ ٱلرَّبُّ حِصْنُ حَيَاتِي، مِمَّنْ أَرْتَعِبُ؟ - مزمور 27:1"
-        ];
+    <div class="copyright">
+        <p>&copy; 2025 جميع الحقوق محفوظة لـ كنيسة ماري مينا. <br> تم تطوير هذا الموقع بواسطة المهندس أمير ميلاد.</p>
+    </div>
 
-        let lastVerse = "";
+    <div class="toast" id="toast"></div>
 
-        function getRandomVerse() {
-            let randomIndex;
-            let newVerse;
-
-            do {
-                randomIndex = Math.floor(Math.random() * verses.length);
-                newVerse = verses[randomIndex];
-            } while (newVerse === lastVerse);
-
-            lastVerse = newVerse;
-            return newVerse;
-        }
-
-        function updateVerse() {
-            const verseElement = document.getElementById("verse");
-            verseElement.style.opacity = 0;
-            setTimeout(() => {
-                verseElement.innerText = getRandomVerse();
-                verseElement.style.opacity = 1;
-            }, 300);
-        }
-
-        function copyVerse() {
-            const verseText = document.getElementById("verse").innerText;
-            navigator.clipboard.writeText(verseText).then(() => {
-                showToast("تم نسخ الآية 📋");
-            });
-        }
-
-        function shareVerse() {
-            const verseText = document.getElementById("verse").innerText;
-            if (navigator.share) {
-                navigator.share({
-                    title: "آية اليوم",
-                    text: verseText,
-                    url: window.location.href
-                }).catch(err => console.log("خطأ في المشاركة:", err));
-            } else {
-                alert("المشاركة غير مدعومة في هذا المتصفح.");
-            }
-        }
-
-        function saveVerse() {
-            const verseText = document.getElementById("verse").innerText;
-            let savedVerses = JSON.parse(localStorage.getItem("savedVerses")) || [];
-            if (!savedVerses.includes(verseText)) {
-                savedVerses.push(verseText);
-                localStorage.setItem("savedVerses", JSON.stringify(savedVerses));
-                showToast("تم حفظ الآية بنجاح! ❤️");
-            } else {
-                showToast("الآية محفوظة مسبقًا!");
-            }
-        }
-
-        const explanations = {
-            "إرميا 29:11": "هذه الآية تذكرنا بأن الله لديه خطط لسلامنا ورجائنا، وليس للشر.",
-            "متى 7:7": "تشجعنا هذه الآية على الصلاة وطلب العون من الله بثقة.",
-            "مزمور 27:1": "تؤكد هذه الآية أن الله هو مصدر قوتنا وحمايتنا."
-        };
-
-        function showExplanation() {
-            const verseText = document.getElementById("verse").innerText;
-            const verseKey = verseText.split(" - ")[1];
-            const explanation = explanations[verseKey] || "لا يوجد تفسير متاح حاليًا لهذه الآية.";
-            alert(explanation);
-        }
-
-        function showToast(message) {
-            const toast = document.getElementById("toast");
-            toast.innerText = message;
-            toast.style.display = "block";
-            setTimeout(() => toast.style.display = "none", 3000);
-        }
-
-        document.getElementById("new-verse").addEventListener("click", updateVerse);
-        document.getElementById("copy-verse").addEventListener("click", copyVerse);
-        document.getElementById("share-verse").addEventListener("click", shareVerse);
-        document.getElementById("save-verse").addEventListener("click", saveVerse);
-        document.getElementById("explain-verse").addEventListener("click", showExplanation);
-
-        updateVerse();
-    </script>
-
+    <script src="script.js"></script>
 </body>
 
 </html>
