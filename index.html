@@ -18,16 +18,16 @@
         }
 
         #title {
-            font-size: 32px; /* زيادة حجم الخط */
+            font-size: 32px;
             font-weight: bold;
-            color: #FFD700; /* لون ذهبي */
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* ظل أكثر وضوحًا */
+            color: #000; /* اللون الأسود الكثيف */
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
             margin-bottom: 30px;
             padding: 10px;
-            background: rgba(0, 0, 0, 0.5); /* خلفية شفافة */
-            border-radius: 10px; /* زوايا مدورة */
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
             display: inline-block;
-            animation: fadeIn 2s ease-in-out; /* تأثير ظهور */
+            animation: fadeIn 2s ease-in-out;
         }
 
         @keyframes fadeIn {
@@ -62,7 +62,7 @@
         }
 
         #verse-image {
-            width: 120px; /* تم زيادة العرض هنا */
+            width: 120px;
             height: auto;
             border-radius: 10px;
             max-width: 100%;
@@ -138,17 +138,21 @@
 
         @media (max-width: 600px) {
             body { padding: 20px; }
-            #title { font-size: 24px; padding: 8px; } /* حجم أصغر للهواتف */
+            #title { font-size: 24px; padding: 8px; }
             #verse-container { flex-direction: column; max-width: 100%; padding: 15px; }
             #verse { font-size: 18px; padding: 15px; max-width: 100%; }
-            #verse-image { width: 100px; } /* حجم أصغر للهواتف */
+            #verse-image { width: 100px; }
             button { min-width: 100px; font-size: 14px; }
         }
     </style>
 </head>
 
 <body>
-    <h2 id="title">آية من ربنا ليك النهاردة ❤✨</h2>
+    <h2 id="title">
+        صوت ربنا ليك 
+        <span style="color: red;">✝</span>
+        <span style="color: red;">📖</span>
+    </h2>
 
     <div id="verse-container">
         <img src="https://raw.githubusercontent.com/Skezoo/Ayatoday/main/c2.jpg" id="verse-image" alt="صورة دينية">
@@ -171,7 +175,7 @@
                 كنيسة مار مينا والبابا كيرلس
             </a>
         </p>
-        <p>إرسالة ربنا ليك النهاردة ومع كل تحديث للصفحة رسالة مختلفة</p>
+        <p>#إتبعني_كاتدرائية مارمينا والبابا كيرلس</p>
     </div>
 
     <div class="copyright">
