@@ -26,7 +26,6 @@ function getRandomVerse() {
 
 function updateVerse() {
     const verseElement = document.getElementById("verse");
-
     if (!verseElement) return;
 
     verseElement.style.opacity = 0;
@@ -75,11 +74,42 @@ function showToast(message) {
     setTimeout(() => toast.style.display = "none", 3000);
 }
 
-// تحديث الآية عند تحميل الصفحة مباشرةً
+// تفعيل التنبيهات اليومية
+function enableNotifications() {
+    Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+            localStorage.setItem("notificationsEnabled", "true");
+            showToast("تم تفعيل التنبيهات اليومية! 🔔");
+        } else {
+            showToast("لم يتم تفعيل التنبيهات!");
+        }
+    });
+}
+
+function sendDailyNotification() {
+    if (localStorage.getItem("notificationsEnabled") === "true") {
+        const verseText = getRandomVerse();
+        new Notification("آية اليوم", { body: verseText });
+    }
+}
+
+// تفعيل التفسير (مثال فقط)
+function explainVerse() {
+    const verseText = document.getElementById("verse").innerText;
+    showToast(تفسير الآية: ${verseText});
+}
+
+// تحميل الصفحة
 document.addEventListener("DOMContentLoaded", () => {
     setTimeout(updateVerse, 500); // تأخير بسيط لضمان التحديث بعد تحميل الصفحة بالكامل
+
     document.getElementById("new-verse").addEventListener("click", updateVerse);
     document.getElementById("copy-verse").addEventListener("click", copyVerse);
     document.getElementById("share-verse").addEventListener("click", shareVerse);
     document.getElementById("save-verse").addEventListener("click", saveVerse);
+    document.getElementById("notification-button").addEventListener("click", enableNotifications);
+    document.getElementById("explain-verse").addEventListener("click", explainVerse);
+
+    // إرسال تنبيه يومي عند فتح الصفحة
+    setTimeout(sendDailyNotification, 2000);
 });
