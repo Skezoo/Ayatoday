@@ -11,13 +11,64 @@
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 50px;
-            background-image: url('https://raw.githubusercontent.com/Skezoo/Ayatoday/main/C4.jpg');
+            background-image: url('https://raw.githubusercontent.com/Skezoo/Ayatoday/main/C4.jpg'); /* تعديل الخلفية */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             color: white;
             height: 100vh;
             margin: 0;
+        }
+
+        #title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #FFD700;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            margin-bottom: 30px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            display: inline-block;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        #verse-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            max-width: 90%;
+            margin: auto;
+            flex-wrap: wrap;
+        }
+
+        #verse {
+            font-size: 24px;
+            background: white;
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            opacity: 1;
+            transition: opacity 0.3s ease-in-out;
+            flex: 1;
+            max-width: 80%;
+        }
+
+        #verse-image {
+            width: 120px;
+            height: auto;
+            border-radius: 10px;
+            max-width: 100%;
         }
 
         .buttons {
@@ -37,21 +88,43 @@
             cursor: pointer;
             transition: background 0.3s, transform 0.2s;
             min-width: 120px;
-            background-color: #4CAF50;
-            color: white;
         }
 
-        button:hover {
-            background-color: #45a049;
+        #new-verse { background: #007bff; color: white; }
+        #new-verse:hover { background: #0056b3; }
+
+        #copy-verse { background: #28a745; color: white; }
+        #copy-verse:hover { background: #218838; }
+
+        #share-verse { background: #ffc107; color: black; }
+        #share-verse:hover { background: #e0a800; }
+
+        #save-verse { background: #dc3545; color: white; }
+        #save-verse:hover { background: #c82333; }
+
+        #explain-verse { background: #6610f2; color: white; }
+        #explain-verse:hover { background: #520dc2; }
+
+        #notification-button { background: #6c757d; color: white; }
+        #notification-button:hover { background: #5a6268; }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 14px;
+            color: #ddd;
         }
 
-        #memorial-button {
-            background: #ff5733;
-            color: white;
+        .footer .church-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #FFD700;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        #memorial-button:hover {
-            background: #c70039;
+        .copyright {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #aaa;
         }
 
         .toast {
@@ -65,12 +138,26 @@
             z-index: 9999;
             display: none;
         }
+
+        @media (max-width: 600px) {
+            body { padding: 20px; }
+            #title { font-size: 24px; padding: 8px; }
+            #verse-container { flex-direction: column; max-width: 100%; padding: 15px; }
+            #verse { font-size: 18px; padding: 15px; max-width: 100%; }
+            #verse-image { width: 100px; }
+            button { min-width: 100px; font-size: 14px; }
+        }
     </style>
 </head>
 
 <body>
     <h2 id="title">صوت ربنا ليك ✝📖</h2>
-    <p id="verse"></p>
+
+    <div id="verse-container">
+        <img src="https://raw.githubusercontent.com/Skezoo/Ayatoday/main/c2.jpg" id="verse-image" alt="صورة دينية">
+        <div id="verse">جاري تحميل الآية...</div>
+        <img src="https://raw.githubusercontent.com/Skezoo/Ayatoday/main/c2.jpg" id="verse-image" alt="صورة دينية">
+    </div>
 
     <div class="buttons">
         <button id="new-verse">🔄 آية جديدة</button>
@@ -79,7 +166,20 @@
         <button id="save-verse">❤ حفظ الآية</button>
         <button id="explain-verse">📖 عرض التفسير</button>
         <button id="notification-button">🔔 تفعيل التنبيه اليومي</button>
-        <button id="memorial-button">📜 تذكار اليوم</button>
+    </div>
+
+    <div class="footer">
+        <p class="church-name">
+            <a href="https://www.facebook.com/share/19o48YDdaW/" target="_blank"
+                style="text-decoration: none; color: inherit;">
+                #إتبعني_كاتدرائية مارمينا والبابا كيرلس
+            </a>
+        </p>
+        <p>إرسالة ربنا ليك النهاردة ومع كل تحديث للصفحة رسالة مختلفة</p>
+    </div>
+
+    <div class="copyright">
+        <p>&copy; 2025 جميع الحقوق محفوظة لـ كنيسة ماري مينا. <br> تم تطوير هذا الموقع بواسطة المهندس أمير ميلاد.</p>
     </div>
 
     <div class="toast" id="toast"></div>
