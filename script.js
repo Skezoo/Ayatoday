@@ -30,9 +30,11 @@ function updateVerse() {
 
     verseElement.style.opacity = 0; // بداية تأثير الإظهار
 
-    const newVerse = getRandomVerse();
-    verseElement.textContent = newVerse;
-    verseElement.style.opacity = 1; // إظهار النص بسلاسة
+    setTimeout(() => {
+        const newVerse = getRandomVerse();
+        verseElement.textContent = newVerse;
+        verseElement.style.opacity = 1; // إظهار النص بسلاسة
+    }, 300); // تأخير بسيط لإظهار التأثير
 }
 
 function copyVerse() {
@@ -113,21 +115,21 @@ function showRemembrance() {
     showToast(remembrance); // عرض التذكار كإشعار
 }
 
+// تهيئة الصفحة عند التحميل
 document.addEventListener("DOMContentLoaded", () => {
     const verseElement = document.getElementById("verse");
-    const loadingMessage = "جاري تحميل الآية...";
     if (verseElement) {
-        verseElement.textContent = loadingMessage; // وضع الرسالة عند تحميل الصفحة
-        verseElement.style.opacity = 1; // ضمان ظهور النص
+        verseElement.textContent = "جاري تحميل الآية..."; // رسالة تحميل مؤقتة
         updateVerse(); // تحديث الآية مباشرة
     }
 
+    // ربط الأزرار بالدوال
     document.getElementById("new-verse").addEventListener("click", updateVerse);
     document.getElementById("copy-verse").addEventListener("click", copyVerse);
     document.getElementById("share-verse").addEventListener("click", shareVerse);
     document.getElementById("save-verse").addEventListener("click", saveVerse);
-    document.getElementById("notification-button").addEventListener("click", enableNotifications);
     document.getElementById("explain-verse").addEventListener("click", explainVerse);
+    document.getElementById("notification-button").addEventListener("click", enableNotifications);
     document.getElementById("remembrance-button").addEventListener("click", showRemembrance); // ربط الزر الجديد
 
     setInterval(sendDailyNotification, 86400000); // إرسال إشعار يومي كل 24 ساعة
