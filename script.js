@@ -98,14 +98,20 @@ function sendDailyNotification() {
 
 function explainVerse() {
     const verseText = document.getElementById("verse").textContent;
-    showToast(تفسير الآية: ${verseText});
+    showToast(`تفسير الآية: ${verseText}`);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     const verseElement = document.getElementById("verse");
+    const loadingMessage = "جاري تحميل الآية...";
     if (verseElement) {
+        verseElement.textContent = loadingMessage; // وضع الرسالة عند تحميل الصفحة
         verseElement.style.opacity = 1; // ضمان ظهور النص
-        updateVerse(); // تحميل الآية فورًا
+
+        // قم بتحديث الآية بسرعة بمجرد تحميل الصفحة
+        setTimeout(() => {
+            updateVerse();
+        }, 100); // تأخير بسيط لتحسين تجربة المستخدم
     }
 
     document.getElementById("new-verse").addEventListener("click", updateVerse);
@@ -115,5 +121,5 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("notification-button").addEventListener("click", enableNotifications);
     document.getElementById("explain-verse").addEventListener("click", explainVerse);
 
-    setTimeout(sendDailyNotification, 2000);
+    setInterval(sendDailyNotification, 86400000); // إرسال إشعار يومي كل 24 ساعة
 });
