@@ -28,11 +28,15 @@ function updateVerse() {
     const verseElement = document.getElementById("verse");
     if (!verseElement) return;
 
-    verseElement.style.opacity = 0; // بداية تأثير الإظهار
+    verseElement.style.opacity = 0;
 
-    const newVerse = getRandomVerse();
-    verseElement.textContent = newVerse;
-    verseElement.style.opacity = 1; // إظهار النص بسلاسة
+    setTimeout(() => {
+        const newVerse = getRandomVerse();
+        if (newVerse) {
+            verseElement.textContent = newVerse;
+            verseElement.style.opacity = 1;
+        }
+    }, 100);
 }
 
 function copyVerse() {
@@ -92,18 +96,25 @@ function sendDailyNotification() {
     }
 }
 
-function explainVerse() {
-    const verseText = document.getElementById("verse").textContent;
-    showToast(`تفسير الآية: ${verseText}`);
+const saintsMemorials = {
+    "02-11": "تذكار الشهيد مار جرجس",
+    "02-12": "تذكار القديس باسيليوس الكبير",
+    "02-13": "تذكار القديس أنطونيوس",
+};
+
+function showMemorial() {
+    const today = new Date();
+    const dateString = (today.getMonth() + 1).toString().padStart(2, '0') + "-" + today.getDate().toString().padStart(2, '0');
+    const memorial = saintsMemorials[dateString] || "لا يوجد تذكار اليوم";
+
+    showToast(memorial);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     const verseElement = document.getElementById("verse");
-    const loadingMessage = "جاري تحميل الآية...";
     if (verseElement) {
-        verseElement.textContent = loadingMessage; // وضع الرسالة عند تحميل الصفحة
-        verseElement.style.opacity = 1; // ضمان ظهور النص
-        updateVerse(); // تحديث الآية مباشرة
+        verseElement.style.opacity = 1;
+        updateVerse();
     }
 
     document.getElementById("new-verse").addEventListener("click", updateVerse);
@@ -112,6 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("save-verse").addEventListener("click", saveVerse);
     document.getElementById("notification-button").addEventListener("click", enableNotifications);
     document.getElementById("explain-verse").addEventListener("click", explainVerse);
+    document.getElementById("memorial-day").addEventListener("click", showMemorial);
 
-    setInterval(sendDailyNotification, 86400000); // إرسال إشعار يومي كل 24 ساعة
+    setTimeout(sendDailyNotification, 2000);
 });
