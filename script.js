@@ -12,16 +12,29 @@ const verses = [
 let lastVerse = "";
 
 function getRandomVerse() {
-    let randomIndex = Math.floor(Math.random() * verses.length);
-    return verses[randomIndex];
+    let randomIndex;
+    do {
+        randomIndex = Math.floor(Math.random() * verses.length);
+    } while (verses[randomIndex] === lastVerse);
+    lastVerse = verses[randomIndex];
+    return lastVerse;
+}
+
+function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.style.display = "block";
+    setTimeout(() => {
+        toast.style.display = "none";
+    }, 3000);
 }
 
 function getTodaysRemembrance() {
     const remembrances = [
         { date: "02-11", text: "اليوم هو تذكار استشهاد القديسة دميانة." },
         { date: "01-01", text: "اليوم هو تذكار استشهاد القديس مارمينا العجايبي." },
-        { date: "12-25", text: "اليوم هو تذكار ميلاد السيد المسيح." },
-        // أضف باقي التذكارات حسب الحاجة
+        { date: "01-02", text: "اليوم هو تذكار نياحة البابا كيرلس السادس." },
+        // المزيد من التذكارات
     ];
 
     const today = new Date();
@@ -34,32 +47,20 @@ function getTodaysRemembrance() {
             return remembrance.text;
         }
     }
-    return null; // إذا لم يوجد تذكار لهذا اليوم
+    return null;
 }
 
-function showToast(message) {
-    const toast = document.getElementById("toast");
-    toast.textContent = message;
-    toast.style.display = "block";
-    setTimeout(() => {
-        toast.style.display = "none";
-    }, 3000);
-}
-
-function updateVerse() {
-    const verse = getRandomVerse();
-    lastVerse = verse;
-    document.getElementById("verse").textContent = verse;
-}
-
-document.getElementById("new-verse").addEventListener("click", updateVerse);
-document.getElementById("remembrance-button").addEventListener("click", () => {
+function showRemembrance() {
     const remembrance = getTodaysRemembrance();
     if (remembrance) {
         showToast(remembrance);
     } else {
         showToast("لا يوجد تذكار لهذا اليوم.");
     }
+}
+
+document.getElementById("new-verse").addEventListener("click", () => {
+    document.getElementById("verse").textContent = getRandomVerse();
 });
 
-updateVerse();
+document.getElementById("remembrance-button").addEventListener("click", showRemembrance);
