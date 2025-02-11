@@ -99,19 +99,30 @@ function explainVerse() {
     showToast(`تفسير الآية: ${verseText}`);
 }
 
-// قائمة بالتذكارات (يمكنك إضافة المزيد)
+// قائمة بالتذكارات مرتبطة بتواريخ محددة
 const remembrances = [
-    "اليوم هو تذكار استشهاد القديس مارمينا العجايبي.",
-    "اليوم هو تذكار نياحة البابا كيرلس السادس.",
-    "اليوم هو تذكار استشهاد القديسة دميانة.",
-    "اليوم هو تذكار نياحة الأنبا أنطونيوس أب الرهبان.",
-    "اليوم هو تذكار استشهاد القديس جرجس الروماني."
+    { date: "01-01", text: "اليوم هو تذكار استشهاد القديس مارمينا العجايبي." },
+    { date: "02-01", text: "اليوم هو تذكار نياحة البابا كيرلس السادس." },
+    { date: "03-01", text: "اليوم هو تذكار استشهاد القديسة دميانة." },
+    { date: "04-01", text: "اليوم هو تذكار نياحة الأنبا أنطونيوس أب الرهبان." },
+    { date: "05-01", text: "اليوم هو تذكار استشهاد القديس جرجس الروماني." },
+    // يمكنك إضافة المزيد من التذكارات هنا
 ];
+
+// دالة للحصول على تذكار اليوم الفعلي
+function getTodaysRemembrance() {
+    const today = new Date();
+    const month = String(today.getMonth() + 1).padStart(2, "0"); // الشهر (01-12)
+    const day = String(today.getDate()).padStart(2, "0"); // اليوم (01-31)
+    const todayDate = `${month}-${day}`;
+
+    const remembrance = remembrances.find(r => r.date === todayDate);
+    return remembrance ? remembrance.text : "لا يوجد تذكار لهذا اليوم.";
+}
 
 // دالة لعرض تذكار اليوم
 function showRemembrance() {
-    const randomIndex = Math.floor(Math.random() * remembrances.length);
-    const remembrance = remembrances[randomIndex];
+    const remembrance = getTodaysRemembrance();
     showToast(remembrance); // عرض التذكار كإشعار
 }
 
