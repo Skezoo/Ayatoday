@@ -9,12 +9,6 @@ const verses = [
     "وَٱلْمَحَبَّةُ تَسْتُرُ كَثِيرًا مِنَ ٱلْخَطَايَا. - 1 بطرس 4:8"
 ];
 
-const memorials = {
-    "2-11": "📜 تذكار استشهاد القديس مار مرقس الرسول",
-    "2-12": "📜 تذكار نياحة القديس البابا كيرلس السادس",
-    "2-13": "📜 تذكار استشهاد القديس مارجرجس الروماني"
-};
-
 let lastVerse = "";
 
 function getRandomVerse() {
@@ -34,12 +28,47 @@ function updateVerse() {
     const verseElement = document.getElementById("verse");
     if (!verseElement) return;
 
-    verseElement.style.opacity = 0;
+    verseElement.style.opacity = 0; // بداية تأثير الإظهار
 
     setTimeout(() => {
-        verseElement.textContent = getRandomVerse();
-        verseElement.style.opacity = 1;
-    }, 100);
+        const newVerse = getRandomVerse();
+        if (newVerse) {
+            verseElement.textContent = newVerse;
+            verseElement.style.opacity = 1; // إظهار النص بسلاسة
+        }
+    }, 100); // تأخير قصير لتشغيل الانتقال
+}
+
+function copyVerse() {
+    const verseText = document.getElementById("verse").textContent;
+    navigator.clipboard.writeText(verseText).then(() => {
+        showToast("تم نسخ الآية 📋");
+    });
+}
+
+function shareVerse() {
+    const verseText = document.getElementById("verse").textContent;
+    if (navigator.share) {
+        navigator.share({
+            title: "آية اليوم",
+            text: verseText,
+            url: window.location.href
+        }).catch(err => console.log("خطأ في المشاركة:", err));
+    } else {
+        alert("المشاركة غير مدعومة في هذا المتصفح.");
+    }
+}
+
+function saveVerse() {
+    const verseText = document.getElementById("verse").textContent;
+    let savedVerses = JSON.parse(localStorage.getItem("savedVerses")) || [];
+    if (!savedVerses.includes(verseText)) {
+        savedVerses.push(verseText);
+        localStorage.setItem("savedVerses", JSON.stringify(savedVerses));
+        showToast("تم حفظ الآية بنجاح! ❤");
+    } else {
+        showToast("الآية محفوظة مسبقًا!");
+    }
 }
 
 function showToast(message) {
@@ -49,21 +78,42 @@ function showToast(message) {
     setTimeout(() => toast.style.display = "none", 3000);
 }
 
-function showMemorial() {
-    const today = new Date();
-    const month = today.getMonth() + 1;
-    const day = today.getDate();
-    const key = `${month}-${day}`;
-    
-    if (memorials[key]) {
-        showToast(memorials[key]);
-    } else {
-        showToast("📜 لا يوجد تذكار مسجل لهذا اليوم.");
+function enableNotifications() {
+    Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+            localStorage.setItem("notificationsEnabled", "true");
+            showToast("تم تفعيل التنبيهات اليومية! 🔔");
+        } else {
+            showToast("لم يتم تفعيل التنبيهات!");
+        }
+    });
+}
+
+function sendDailyNotification() {
+    if (localStorage.getItem("notificationsEnabled") === "true") {
+        const verseText = getRandomVerse();
+        new Notification("آية اليوم", { body: verseText });
     }
 }
 
+function explainVerse() {
+    const verseText = document.getElementById("verse").textContent;
+    showToast(تفسير الآية: ${verseText});
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-    updateVerse();
+    const verseElement = document.getElementById("verse");
+    if (verseElement) {
+        verseElement.style.opacity = 1; // ضمان ظهور النص
+        updateVerse(); // تحميل الآية فورًا
+    }
+
     document.getElementById("new-verse").addEventListener("click", updateVerse);
-    document.getElementById("memorial-button").addEventListener("click", showMemorial);
+    document.getElementById("copy-verse").addEventListener("click", copyVerse);
+    document.getElementById("share-verse").addEventListener("click", shareVerse);
+    document.getElementById("save-verse").addEventListener("click", saveVerse);
+    document.getElementById("notification-button").addEventListener("click", enableNotifications);
+    document.getElementById("explain-verse").addEventListener("click", explainVerse);
+
+    setTimeout(sendDailyNotification, 2000);
 });
