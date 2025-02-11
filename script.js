@@ -94,7 +94,23 @@ function sendDailyNotification() {
 
 function explainVerse() {
     const verseText = document.getElementById("verse").textContent;
-    showToast(تفسير الآية: ${verseText});
+    showToast(`تفسير الآية: ${verseText}`);
+}
+
+// قائمة بالتذكارات (يمكنك إضافة المزيد)
+const remembrances = [
+    "اليوم هو تذكار استشهاد القديس مارمينا العجايبي.",
+    "اليوم هو تذكار نياحة البابا كيرلس السادس.",
+    "اليوم هو تذكار استشهاد القديسة دميانة.",
+    "اليوم هو تذكار نياحة الأنبا أنطونيوس أب الرهبان.",
+    "اليوم هو تذكار استشهاد القديس جرجس الروماني."
+];
+
+// دالة لعرض تذكار اليوم
+function showRemembrance() {
+    const randomIndex = Math.floor(Math.random() * remembrances.length);
+    const remembrance = remembrances[randomIndex];
+    showToast(remembrance); // عرض التذكار كإشعار
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -112,6 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("save-verse").addEventListener("click", saveVerse);
     document.getElementById("notification-button").addEventListener("click", enableNotifications);
     document.getElementById("explain-verse").addEventListener("click", explainVerse);
+    document.getElementById("remembrance-button").addEventListener("click", showRemembrance); // ربط الزر الجديد
 
     setInterval(sendDailyNotification, 86400000); // إرسال إشعار يومي كل 24 ساعة
 });
