@@ -30,13 +30,9 @@ function updateVerse() {
 
     verseElement.style.opacity = 0; // بداية تأثير الإظهار
 
-    setTimeout(() => {
-        const newVerse = getRandomVerse();
-        if (newVerse) {
-            verseElement.textContent = newVerse;
-            verseElement.style.opacity = 1; // إظهار النص بسلاسة
-        }
-    }, 100); // تأخير قصير لتشغيل الانتقال
+    const newVerse = getRandomVerse();
+    verseElement.textContent = newVerse;
+    verseElement.style.opacity = 1; // إظهار النص بسلاسة
 }
 
 function copyVerse() {
@@ -107,11 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (verseElement) {
         verseElement.textContent = loadingMessage; // وضع الرسالة عند تحميل الصفحة
         verseElement.style.opacity = 1; // ضمان ظهور النص
-
-        // قم بتحديث الآية بسرعة بمجرد تحميل الصفحة
-        setTimeout(() => {
-            updateVerse();
-        }, 100); // تأخير بسيط لتحسين تجربة المستخدم
+        updateVerse(); // تحديث الآية مباشرة
     }
 
     document.getElementById("new-verse").addEventListener("click", updateVerse);
