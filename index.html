@@ -1,52 +1,119 @@
-<!DOCTYPE html>
-<html lang="ar">
+const verses = [
+    "اَلْمَحَبَّةُ تَتَأَنَّى وَتَرْفُقُ. اَلْمَحَبَّةُ لَا تَحْسِدُ. اَلْمَحَبَّةُ لَا تَتَفَاخَرُ وَلَا تَنْتَفِخُ. - 1 كورنثوس 13:4",
+    "وَأَمَّا ثَمَرُ ٱلرُّوحِ فَهُوَ: مَحَبَّةٌ، فَرَحٌ، سَلَامٌ، طُولُ أَنَاةٍ، لُطْفٌ، صَلَاحٌ، إِيمَانٌ. - غلاطية 5:22",
+    "اَللَّهُ مَحَبَّةٌ، وَمَنْ يَثْبُتْ فِي ٱلْمَحَبَّةِ، يَثْبُتْ فِي ٱللَّهِ وَٱللَّهُ فِيهِ. - 1 يوحنا 4:16",
+    "فَوْقَ كُلِّ ٱلْأَشْيَاءِ ٱلْبَسُوا ٱلْمَحَبَّةَ، ٱلَّتِي هِيَ رِبَاطُ ٱلْكَمَالِ. - كولوسي 3:14",
+    "لَيْسَ لِأَحَدٍ حُبٌّ أَعْظَمُ مِنْ هَذَا: أَنْ يَضَعَ أَحَدٌ نَفْسَهُ لِأَجْلِ أَحِبَّائِهِ. - يوحنا 15:13",
+    "لِيَكُنْ كُلُّ شَيْءٍ عِنْدَكُمْ بِمَحَبَّةٍ. - 1 كورنثوس 16:14",
+    "وَأَمَّا ٱلْمَحَبَّةُ فَلْتَكُنْ بِلاَ رِيَاءٍ. كُونُوا كَارِهِينَ ٱلشَّرَّ، مُلْتَصِقِينَ بِٱلْخَيْرِ. - رومية 12:9",
+    "وَٱلْمَحَبَّةُ تَسْتُرُ كَثِيرًا مِنَ ٱلْخَطَايَا. - 1 بطرس 4:8"
+];
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>آية اليوم</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <style>
-        /* التنسيق كما كان سابقًا */
-    </style>
-</head>
+let lastVerse = "";
 
-<body>
-    <h2 id="title">صوت ربنا ليك ✝📖</h2>
+function getRandomVerse() {
+    let randomIndex;
+    let newVerse;
 
-    <div id="verse-container">
-        <img src="https://raw.githubusercontent.com/Skezoo/Ayatoday/main/c2.jpg" id="verse-image" alt="صورة دينية">
-        <div id="verse">جاري تحميل الآية...</div>
-        <img src="https://raw.githubusercontent.com/Skezoo/Ayatoday/main/c2.jpg" id="verse-image" alt="صورة دينية">
-    </div>
+    do {
+        randomIndex = Math.floor(Math.random() * verses.length);
+        newVerse = verses[randomIndex];
+    } while (newVerse === lastVerse);
 
-    <div class="buttons">
-        <button id="new-verse">🔄 آية جديدة</button>
-        <button id="copy-verse">📋 نسخ الآية</button>
-        <button id="share-verse">📤 مشاركة</button>
-        <button id="save-verse">❤ حفظ الآية</button>
-        <button id="explain-verse">📖 عرض التفسير</button>
-        <button id="notification-button">🔔 تفعيل التنبيه اليومي</button>
-        <button id="memorial-day">📅 تذكار اليوم</button> <!-- الزر الجديد -->
-    </div>
+    lastVerse = newVerse;
+    return newVerse;
+}
 
-    <div class="footer">
-        <p class="church-name">
-            <a href="https://www.facebook.com/share/19o48YDdaW/" target="_blank"
-                style="text-decoration: none; color: inherit;">
-                #إتبعني_كاتدرائية مارمينا والبابا كيرلس
-            </a>
-        </p>
-        <p>إرسالة ربنا ليك النهاردة ومع كل تحديث للصفحة رسالة مختلفة</p>
-    </div>
+function updateVerse() {
+    const verseElement = document.getElementById("verse");
+    if (!verseElement) return;
 
-    <div class="copyright">
-        <p>&copy; 2025 جميع الحقوق محفوظة لـ كنيسة ماري مينا. <br> تم تطوير هذا الموقع بواسطة المهندس أمير ميلاد.</p>
-    </div>
+    verseElement.style.opacity = 0; // بداية تأثير الإظهار
 
-    <div class="toast" id="toast"></div>
+    setTimeout(() => {
+        const newVerse = getRandomVerse();
+        if (newVerse) {
+            verseElement.textContent = newVerse;
+            verseElement.style.opacity = 1; // إظهار النص بسلاسة
+        }
+    }, 100); // تأخير قصير لتشغيل الانتقال
+}
 
-    <script src="script.js"></script>
-</body>
+function copyVerse() {
+    const verseText = document.getElementById("verse").textContent;
+    navigator.clipboard.writeText(verseText).then(() => {
+        showToast("تم نسخ الآية 📋");
+    });
+}
 
-</html>
+function shareVerse() {
+    const verseText = document.getElementById("verse").textContent;
+    if (navigator.share) {
+        navigator.share({
+            title: "آية اليوم",
+            text: verseText,
+            url: window.location.href
+        }).catch(err => console.log("خطأ في المشاركة:", err));
+    } else {
+        alert("المشاركة غير مدعومة في هذا المتصفح.");
+    }
+}
+
+function saveVerse() {
+    const verseText = document.getElementById("verse").textContent;
+    let savedVerses = JSON.parse(localStorage.getItem("savedVerses")) || [];
+    if (!savedVerses.includes(verseText)) {
+        savedVerses.push(verseText);
+        localStorage.setItem("savedVerses", JSON.stringify(savedVerses));
+        showToast("تم حفظ الآية بنجاح! ❤");
+    } else {
+        showToast("الآية محفوظة مسبقًا!");
+    }
+}
+
+function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.style.display = "block";
+    setTimeout(() => toast.style.display = "none", 3000);
+}
+
+function enableNotifications() {
+    Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+            localStorage.setItem("notificationsEnabled", "true");
+            showToast("تم تفعيل التنبيهات اليومية! 🔔");
+        } else {
+            showToast("لم يتم تفعيل التنبيهات!");
+        }
+    });
+}
+
+function sendDailyNotification() {
+    if (localStorage.getItem("notificationsEnabled") === "true") {
+        const verseText = getRandomVerse();
+        new Notification("آية اليوم", { body: verseText });
+    }
+}
+
+function explainVerse() {
+    const verseText = document.getElementById("verse").textContent;
+    showToast(تفسير الآية: ${verseText});
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const verseElement = document.getElementById("verse");
+    if (verseElement) {
+        verseElement.style.opacity = 1; // ضمان ظهور النص
+        updateVerse(); // تحميل الآية فورًا
+    }
+
+    document.getElementById("new-verse").addEventListener("click", updateVerse);
+    document.getElementById("copy-verse").addEventListener("click", copyVerse);
+    document.getElementById("share-verse").addEventListener("click", shareVerse);
+    document.getElementById("save-verse").addEventListener("click", saveVerse);
+    document.getElementById("notification-button").addEventListener("click", enableNotifications);
+    document.getElementById("explain-verse").addEventListener("click", explainVerse);
+
+    setTimeout(sendDailyNotification, 2000);
+});
