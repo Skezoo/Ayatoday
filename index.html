@@ -1,194 +1,119 @@
-<!DOCTYPE html>
-<html lang="ar">
+const verses = [
+    {
+        text: "لأني أنا عارف الأفكار التي أنا مفتكر بها عنكم يقول الرب أفكار سلام لا شر",
+        reference: "إرميا 29: 11",
+        explanation: "الله يعلن عن محبته ورعايته لشعبه"
+    },
+    {
+        text: "اَلْمَحَبَّةُ تَتَأَنَّى وَتَرْفُقُ. اَلْمَحَبَّةُ لَا تَحْسِدُ. اَلْمَحَبَّةُ لَا تَتَفَاخَرُ وَلَا تَنْتَفِخُ",
+        reference: "1 كورنثوس 13:4",
+        explanation: "وصف لطبيعة المحبة الحقيقية"
+    }
+    // إضافة المزيد من الآيات هنا
+];
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>آية اليوم</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-            background-image: url('https://raw.githubusercontent.com/Skezoo/Ayatoday/main/C4.jpg'); /* تعديل الخلفية */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            color: white;
-            height: 100vh;
-            margin: 0;
+const remembrances = {
+    "01-01": "تذكار استشهاد القديس مارمينا العجايبي",
+    "02-01": "نياحة البابا كيرلس السادس",
+    "03-01": "استشهاد القديسة دميانة",
+    "04-01": "نياحة الأنبا أنطونيوس أب الرهبان",
+    // إضافة التواريخ المتبقية هنا
+    "15-10": "تذكار اختباري" // مثال لتاريخ اليوم الحالي
+};
+
+let currentVerse = null;
+let notificationsEnabled = false;
+
+// ======== إصلاح مشكلة تحميل الآية ========
+function getRandomVerse() {
+    if (verses.length === 0) {
+        console.error("لا توجد آيات متاحة");
+        return null;
+    }
+    
+    let randomIndex;
+    do {
+        randomIndex = Math.floor(Math.random() * verses.length);
+    } while (verses.length > 1 && verses[randomIndex] === currentVerse);
+    
+    return verses[randomIndex];
+}
+
+function updateVerseDisplay() {
+    const verse = getRandomVerse();
+    const verseElement = document.getElementById('verse');
+    
+    if (!verse || !verseElement) {
+        console.error("خطأ في تحميل الآية");
+        verseElement.textContent = "عذرًا، حدث خطأ في تحميل الآية";
+        return;
+    }
+    
+    currentVerse = verse;
+    verseElement.innerHTML = `
+        <p>${verse.text}</p>
+        <p class="verse-reference">${verse.reference}</p>
+    `;
+    verseElement.classList.add('animate__fadeIn');
+    setTimeout(() => verseElement.classList.remove('animate__fadeIn'), 500);
+}
+
+// ======== إصلاح مشكلة التذكارات ========
+function getFormattedDate() {
+    const date = new Date();
+    return `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+}
+
+function showTodaysRemembrance() {
+    const today = getFormattedDate();
+    const remembrance = remembrances[today] || `لا يوجد تذكار مسجل لـ ${today}`;
+    
+    console.log("تاريخ اليوم:", today); // للمساعدة في التشخيص
+    showToast(remembrance);
+}
+
+// ======== نظام الأساسي ========
+document.addEventListener('DOMContentLoaded', () => {
+    // التحميل الأولي للآية
+    updateVerseDisplay();
+    
+    // تهيئة الأزرار
+    document.getElementById('new-verse').addEventListener('click', updateVerseDisplay);
+    document.getElementById('copy-verse').addEventListener('click', () => {
+        navigator.clipboard.writeText(`${currentVerse.text} - ${currentVerse.reference}`);
+        showToast("تم نسخ الآية");
+    });
+    document.getElementById('share-verse').addEventListener('click', async () => {
+        try {
+            await navigator.share({
+                title: `آية اليوم - ${currentVerse.reference}`,
+                text: `${currentVerse.text}\n\n${currentVerse.reference}`,
+                url: window.location.href
+            });
+        } catch (err) {
+            showToast("تم إلغاء المشاركة");
         }
-
-        #title {
-            font-size: 32px;
-            font-weight: bold;
-            color: #FFD700;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
-            margin-bottom: 30px;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            display: inline-block;
-            animation: fadeIn 2s ease-in-out;
+    });
+    document.getElementById('save-verse').addEventListener('click', () => {
+        const saved = JSON.parse(localStorage.getItem('savedVerses') || '[]');
+        const exists = saved.some(v => v.reference === currentVerse.reference);
+        
+        if (!exists) {
+            saved.push(currentVerse);
+            localStorage.setItem('savedVerses', JSON.stringify(saved));
+            showToast("تم حفظ الآية في المفضلة");
+        } else {
+            showToast("الآية محفوظة مسبقًا");
         }
+    });
+    document.getElementById('remembrance-button').addEventListener('click', showTodaysRemembrance);
+});
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        #verse-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-            max-width: 90%;
-            margin: auto;
-            flex-wrap: wrap;
-        }
-
-        #verse {
-            font-size: 24px;
-            background: white;
-            color: black;
-            padding: 20px;
-            border-radius: 10px;
-            opacity: 1;
-            transition: opacity 0.3s ease-in-out;
-            flex: 1;
-            max-width: 80%;
-        }
-
-        #verse-image {
-            width: 120px;
-            height: auto;
-            border-radius: 10px;
-            max-width: 100%;
-        }
-
-        .buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        button {
-            padding: 10px 15px;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-            min-width: 120px;
-        }
-
-        #new-verse { background: #007bff; color: white; }
-        #new-verse:hover { background: #0056b3; }
-
-        #copy-verse { background: #28a745; color: white; }
-        #copy-verse:hover { background: #218838; }
-
-        #share-verse { background: #ffc107; color: black; }
-        #share-verse:hover { background: #e0a800; }
-
-        #save-verse { background: #dc3545; color: white; }
-        #save-verse:hover { background: #c82333; }
-
-        #explain-verse { background: #6610f2; color: white; }
-        #explain-verse:hover { background: #520dc2; }
-
-        #notification-button { background: #6c757d; color: white; }
-        #notification-button:hover { background: #5a6268; }
-
-        #remembrance-button { background: #17a2b8; color: white; } /* زر تذكار اليوم */
-        #remembrance-button:hover { background: #138496; }
-
-        .footer {
-            margin-top: 40px;
-            font-size: 14px;
-            color: #ddd;
-        }
-
-        .footer .church-name {
-            font-size: 20px;
-            font-weight: bold;
-            color: #FFD700;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .copyright {
-            margin-top: 20px;
-            font-size: 12px;
-            color: #aaa;
-        }
-
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            z-index: 9999;
-            display: none;
-        }
-
-        @media (max-width: 600px) {
-            body { padding: 20px; }
-            #title { font-size: 24px; padding: 8px; }
-            #verse-container { flex-direction: column; max-width: 100%; padding: 15px; }
-            #verse { font-size: 18px; padding: 15px; max-width: 100%; }
-            #verse-image { width: 100px; }
-            button { min-width: 100px; font-size: 14px; }
-        }
-    </style>
-</head>
-
-<body>
-    <h2 id="title">صوت ربنا ليك ✝📖</h2>
-
-    <div id="verse-container">
-        <img src="https://raw.githubusercontent.com/Skezoo/Ayatoday/main/c2.jpg" id="verse-image" alt="صورة دينية">
-        <div id="verse">جاري تحميل الآية...</div>
-        <img src="https://raw.githubusercontent.com/Skezoo/Ayatoday/main/c2.jpg" id="verse-image" alt="صورة دينية">
-    </div>
-
-    <div class="buttons">
-        <button id="new-verse">🔄 آية جديدة</button>
-        <button id="copy-verse">📋 نسخ الآية</button>
-        <button id="share-verse">📤 مشاركة</button>
-        <button id="save-verse">❤ حفظ الآية</button>
-        <button id="explain-verse">📖 عرض التفسير</button>
-        <button id="notification-button">🔔 تفعيل التنبيه اليومي</button>
-        <button id="remembrance-button">📅 تذكار اليوم</button> <!-- الزر الجديد -->
-    </div>
-
-    <div class="footer">
-        <p class="church-name">
-            <a href="https://www.facebook.com/share/19o48YDdaW/" target="_blank"
-                style="text-decoration: none; color: inherit;">
-                #إتبعني_كاتدرائية مارمينا والبابا كيرلس
-            </a>
-        </p>
-        <p>إرسالة ربنا ليك النهاردة ومع كل تحديث للصفحة رسالة مختلفة</p>
-    </div>
-
-    <div class="copyright">
-        <p>&copy; 2025 جميع الحقوق محفوظة لـ كنيسة مار مينا. <br> تم تطوير هذا الموقع بواسطة المهندس أمير ميلاد.</p>
-    </div>
-
-    <div class="toast" id="toast"></div>
-
-    <script src="script.js"></script>
-</body>
-
-</html>
+function showToast(message, duration = 3000) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.style.display = 'block';
+    setTimeout(() => {
+        toast.style.display = 'none';
+    }, duration);
+}
